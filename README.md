@@ -1,4 +1,4 @@
-# curriculum-generator
+# Curriculum Generator
 =======
 # Getting Started with Create React App
 
