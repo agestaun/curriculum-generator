@@ -2,7 +2,11 @@ import React from 'react';
 import './App.css';
 import 'jsoneditor-react/es/editor.min.css';
 import { Color, FontSize } from './utils/commonStyles';
+import json from "./resources/curriculum.json"
 import * as jsPDF from "jspdf";
+import {Curriculum} from "./classes/Curriculum";
+import {Candidate} from "./classes/Candidate";
+import {Job} from "./classes/Job";
 
 
 const App = () => {
@@ -19,8 +23,6 @@ const App = () => {
   const generatePDF = (): string => {
     console.log("Generating PDF...")
     readJson();
-    addHeader();
-    addContactInfo();
     return doc.output('datauristring');
   }
 
@@ -35,25 +37,37 @@ const App = () => {
   }
 
   const readJson = () => {
-
+    const curriculum: Curriculum = new Curriculum(JSON.stringify(json));
+    addContactInfo(curriculum.candidate);
+    addWorkExperiences(curriculum.jobs);
+    doc.setProperties({ title: `Curriculum ${new Date().toLocaleDateString()}`, author: curriculum.candidate.name, creator: "Adrián García Estaún", keywords: "Resume, CV, Curriculum", subject: "Curriculum Vitae"});
   }
 
-  const addHeader = () => {
+  const addContactInfo = (candidate: Candidate) => {
     doc.setFillColor(Color.accent);
     setX(32);
     setY(32);
     doc.ellipse(x, y, 20, 20, 'F');
     setFontStyle('title');
-    doc.text("Adrián García Estaún", setX(-7), y);
+    doc.text(candidate.name, setX(-7), y);
     setFontStyle('subtitle');
-    const subtitle = 'Senior Developer & Manager';
+    const subtitle = candidate.position;
     const subtitleWidth = doc.getTextWidth(subtitle);
     doc.text(subtitle, x, setY(7));
     doc.setLineWidth(0.5);
     doc.line(setX(subtitleWidth + 2), y - 1, Limits.Vertical.end, y - 1);
+    const image = getImage('ic_phone.png');
+    doc.addImage(image, 'jpeg', x, setY(10), 10, 10);
+    doc.addImage(candidate.picture, 'PNG', x, setY(30), 30, 30);
   }
 
-  const addContactInfo = () => {
+  const getImage = (imgWithExtension: string): HTMLImageElement => {
+    const img = new Image();
+    img.src = './assets/' + imgWithExtension;
+    return img;
+  }
+
+  function addWorkExperiences(jobs: Array<Job>) {
 
   }
 

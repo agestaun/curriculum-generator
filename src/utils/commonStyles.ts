@@ -11,3 +11,4 @@ export const FontSize = {
 	subtitle: 14,
 	boy: 16,
 }
+
