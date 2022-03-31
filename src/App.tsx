@@ -7,10 +7,12 @@ import {Curriculum} from './classes/Curriculum'
 import {Candidate} from './classes/Candidate'
 import {Job} from './classes/Job'
 import {SwatchesPicker} from 'react-color'
+import CropperDialog from './components/CropperDialog'
 
 const App = () => {
   const [accentColor, setAccentColor] = useState(Color.accent)
   const [profileImg, setProfileImg] = useState('')
+  const [openCropper, setOpenCropper] = useState(false)
   const [data, setData] = useState('')
   const { jsPDF } = require('jspdf')
   const doc = new jsPDF({ lineHeight: 2 })
@@ -72,6 +74,8 @@ const App = () => {
     doc.setLineWidth(0.5)
     doc.line(setX(subtitleWidth + 2), y - 1, Limits.Horizontal.end, y - 1)
     //const profileImgBAse64 = profileImg.
+    let image = new Image()
+    image.src = candidate.picture
     doc.addImage(candidate.picture, 'PNG', x, setY(30), 30, 30)
   }
 
@@ -111,9 +115,8 @@ const App = () => {
     console.log(e.target.files[0])
     setProfileImg(e.target.files[0])
     const file = e.target.files[0]
-    getBase64(file, (base64) => {
-        base64 && setProfileImg(base64)
-    })
+    getBase64(file, (base64) => base64 && setProfileImg(base64))
+    setOpenCropper(true)
   }
 
 
@@ -129,6 +132,11 @@ const App = () => {
     }
   }
 
+  const onImageCropped = (img: string) => {
+    setProfileImg(img)
+    setOpenCropper(false)
+  }
+
   return (
     <div id="container">
       <div id="leftContainer">
@@ -136,11 +144,12 @@ const App = () => {
         <h5>Choose the highlight color</h5>
         <SwatchesPicker id="colorPicker" color={Color.accent} onChange={(color)=> setAccentColor(color.hex)} />
         <h5>Upload your profile image</h5>
-        <input type={'file'} accept={'image/*'} onChange={onImageChanged}/>
+        <input type={'file'} accept={'image/*'} onChange={onImageChanged} onClick={(e) => e.currentTarget.value = ''}/>
       </div>
       <div id="rightContainer">
         <object width="100%" height="100%" data={data} type="application/pdf" />
       </div>
+      <CropperDialog open={openCropper} img={profileImg} onCropped={onImageCropped}/>
     </div>
   )
 }
