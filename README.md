@@ -1,4 +1,4 @@
-# Curriculum Generator
+# Curriculum Generator - WIP 🚧 
 
 # Getting Started with Create React App
 
