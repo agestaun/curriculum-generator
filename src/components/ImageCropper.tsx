@@ -1,36 +1,48 @@
-import React, {useState} from 'react'
-import Slider from '@material-ui/core/Slider'
-import Cropper from 'react-easy-crop'
-import {DialogContentText} from '@mui/material'
-import {Color} from '../style/commonStyles'
+import React, { useRef, useState } from 'react';
+import Slider from '@material-ui/core/Slider';
+import Cropper from 'react-easy-crop';
+import { DialogContentText } from '@mui/material';
+import { Area } from 'react-easy-crop/types';
+import { Color } from '../style/commonStyles';
+import { getCroppedImg } from './Crop';
 
 type Props = {
 	img: string;
 	onCropped: (img: string) => void;
 }
 
-const ImageCropper = ({img, onCropped}: Props) => {
+const ImageCropper = ({ img, onCropped }: Props) => {
 
-	const [zoom, setZoom] = useState(1)
-	const [crop, setCrop] = useState({x: 0, y: 0})
-	const [aspect, setAspect] = useState(1)
+	const [zoom, setZoom] = useState(1);
+	const [crop, setCrop] = useState({ x: 0, y: 0 });
+	const [aspect, setAspect] = useState(1);
+	const currentCroppedArea = useRef<Area>();
 
 	const onCropChange = (crop: {x: number, y: number}) => {
-		setCrop(crop)
-	}
-
-	const onCropComplete = (croppedArea, croppedAreaPixels) => {
-		console.log(croppedAreaPixels.width / croppedAreaPixels.height)
-		//onCropped()
-	}
+		setCrop(crop);
+	};
 
 	const onZoomChange = (zoom) => {
-		setZoom(zoom)
-	}
+		setZoom(zoom);
+	};
+
+	const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
+		currentCroppedArea.current = croppedAreaPixels;
+		handleCrop();
+	};
+
+	const handleCrop = async () => {
+		try {
+			const croppedImage = await getCroppedImg(img, currentCroppedArea.current);
+			onCropped(croppedImage);
+		} catch (e) {
+			console.error(e);
+		}
+	};
 
 	return (
 		<div className="App">
-			<div style={{position: 'relative', width: '100%', height: 200}}>
+			<div style={{ position: 'relative', width: '100%', height: 200 }}>
 				<Cropper
 					image={img}
 					crop={crop}
@@ -43,7 +55,7 @@ const ImageCropper = ({img, onCropped}: Props) => {
 					onZoomChange={onZoomChange}
 				/>
 			</div>
-			<div style={{marginTop: 20, alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+			<div style={{ marginTop: 20, alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
 				<DialogContentText color={Color.text}>Use the slider to apply zoom</DialogContentText>
 				<Slider
 					value={zoom}
@@ -55,8 +67,8 @@ const ImageCropper = ({img, onCropped}: Props) => {
 				/>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
 export const styles = (theme) => ({
 	cropContainer: {
@@ -101,7 +113,7 @@ export const styles = (theme) => ({
 			margin: '0 16px',
 		},
 	},
-})
+});
 
 
-export default ImageCropper
+export default ImageCropper;
