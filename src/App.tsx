@@ -2,9 +2,9 @@ import React, { ChangeEventHandler, useEffect, useState } from 'react';
 import './App.css';
 import { Color, FontSize } from './style/commonStyles';
 import json from './resources/curriculum.json';
-import { Curriculum } from './classes/Curriculum';
-import { Candidate } from './classes/Candidate';
-import { Job } from './classes/Job';
+import { Curriculum } from './model/Curriculum';
+import { Candidate } from './model/Candidate';
+import { Job } from './model/Job';
 import { SwatchesPicker } from 'react-color';
 import CropperDialog from './components/CropperDialog';
 
