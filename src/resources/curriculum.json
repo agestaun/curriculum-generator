@@ -1,6 +1,6 @@
 {
   "candidate": {
-    "name": "Adrián García Estaún",
+    "name": "Adrian Garcia Estaun",
     "address": {
       "city": "Barcelona",
       "country": "Spain",
@@ -18,20 +18,39 @@
       "companyName": "Entrust Datacard",
       "companyLocation": "Minnesota, USA",
       "startYear": "2021",
-      "additionalData": "Remote work,\nOffice in Barcelona, ES",
+      "additionalData": "Remote work",
       "current": true,
       "tasks": [
-        "Creation, improvement and maintenance of a mobile application with React Native for IOS and Android.",
-        "Creation, improvement and maintenance of native SDKs for Android and iOS.",
-        "Continuous Integration with Jenkins and artifactory publishing. Responsible to post the artifacts for the customers.",
+        "Creation, improvement and maintenance of React Native application to provide virtual identities to our customers like Soft Tokens, Smart Cards, Encrypted SMSs and push notifications.",
+        "Creation, improvement and maintenance of native SDKs for Android and iOS to manage Soft Tokens and Smart Cards, storing them locally with encryption using Strong box for Android and Secure Enclave for iOS.",
+        "Experienced creating symmetric and asymmetric keys for both platforms to secure data storage and transmission.",
+        "Continuous Integration with Jenkins and artifactory publishing. Responsible for the artifacts posting process for the customers.",
         "Mainly using Typescript after migrating the React Native project from Javascript. Java and Swift development for native modules.",
         "Unit Testing using Vitest and Jest. Multi-Platform E2E Testing with Detox.",
         "Ensuring the security and performance of the application and modules using different patterns.",
         "DexGuard and iXGuard integration to make more difficult the reverse engineering, IP theft, fraudulent app clones or fakes.",
         "Team designer. Use of Sketch as the main tool to create mockups and therefore improving the UI and UX. Creation of Lottie animations.",
-        "Promoving quality of the code introducing patterns, code styling and reviewing “pull requests”.",
+        "Promoving quality of the code introducing patterns, code styling and reviewing “pull requests”",
         "Scrum master. Ensuring that we focus on what is important and a priority in order to achieve the goals.",
-        "Some of my daily tools are Teams, Jira, Bitbucket, Jira, Conﬂuence, Sketch, Webstorm and Visual Studio Code."
+        "Some of my daily tools are Teams, Jira, Bitbucket, Jira, Confluence, Sketch, Webstorm and Visual Studio Code."
+      ]
+    },
+    {
+      "companyName": "SmartRetail",
+      "companyLocation": "Mataro, ES",
+      "startYear": "2020",
+      "duration": "6 months",
+      "tasks": [
+        "Creating mobile apps with Flutter & React Native, developing web solutions with Angular, and architecting servers using Laravel and Node.js. Experienced in integrating Stripe for seamless payment and subscription management within Angular SPAs. Using Azure infrastructure for all the backend logic.\nWorking with Agile methodology."
+      ]
+    },
+    {
+      "companyName": "Accenture",
+      "companyLocation": "Barcelona, ES",
+      "startYear": "2019",
+      "duration": "1 year and 2 months",
+      "tasks": [
+        "Former Accenture team member. Managed projects and led frontend team for Caixabank Pay app, collaborating with backend and business units. Mainly focused on integrating external dependencies to enable card digitalization/enrollment on customers' devices using a new Gemalto SDK that communicates with Visa"
       ]
     }
   ]
